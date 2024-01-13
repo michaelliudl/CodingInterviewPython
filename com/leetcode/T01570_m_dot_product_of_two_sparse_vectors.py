@@ -1,7 +1,7 @@
 from typing import List
 
 class Solution:
-    def letterCombinations(self, digits: str) -> List[str]:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         if not root or not p or not q:
             return None
         pl,ql=list(),list()

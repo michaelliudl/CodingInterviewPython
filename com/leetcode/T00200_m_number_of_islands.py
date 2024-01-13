@@ -7,7 +7,7 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    def numIslands(self, grid: List[List[str]]) -> int:
         if not root or not p or not q:
             return None
         pl,ql=list(),list()

@@ -3,19 +3,17 @@ from typing import List
 class Solution:
 
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        if not piles or h<=0:
+        if not piles or h<len(piles):
             return 0
-
-    def minEatingSpeedBrute(self, piles: List[int], h: int) -> int:
-        if not piles or h<=0:
-            return 0
-        i=1
-        while True:
-            t=sum([e//i if e%i==0 else e//i+1 for e in piles])
-            if t<=h:
-                return i
-            i+=1
-
+        b,e=1,max(piles)
+        while b<e:
+            mid=(b+e)//2
+            total=sum([e//mid if e%mid==0 else e//mid+1 for e in piles])
+            if total<=h:
+                e=mid
+            else:
+                b=mid+1
+        return b
 
 import unittest
 
