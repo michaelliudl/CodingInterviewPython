@@ -2,19 +2,18 @@ from typing import List
 
 class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
-        if not nums or len(nums)<2:
-            return None
-        d=dict()
-        for i in range(len(nums)):
-            d[nums[i]]=i
-        l=list()
-        for i in range(len(nums)):
-            diff=target-nums[i]
-            if diff in d and d[diff]!=i:
-                l.append(i)
-                l.append(d[diff])
-                return l
-        return None
+        if not nums or len(nums)<=1:
+            return 0
+        low,high=0,len(nums)-1
+        # low and high meet at peak
+        while low<high:
+            mid=low+(high-low)//2
+            if nums[mid]<nums[mid+1]:
+                low=mid+1
+            else:
+                high=mid
+        return low
+            
 
 import unittest
 

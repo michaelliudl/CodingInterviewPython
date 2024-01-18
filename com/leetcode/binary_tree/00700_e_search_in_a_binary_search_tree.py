@@ -11,58 +11,18 @@ class TreeNode:
 
 class Solution:
 
-    def isValidBSTIter(self, root: Optional[TreeNode]) -> bool:
+    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
         if not root:
-            return True
-        prev,cur=None,root
-        st=[]
-        while cur or st:
-            if cur:
-                st.append(cur)
-                cur=cur.left
-            else:
-                cur=st.pop()
-                if prev and prev.val>=cur.val:
-                    return False
-                prev=cur
-                cur=cur.right
-        return True
-
-
-
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        def inorder(node: TreeNode, pre: TreeNode) -> (bool, TreeNode):
-            if not node:
-                return (True, pre)
-            (validLeft, pre)=inorder(node.left, pre)
-            if pre and pre.val>=node.val:
-                return (False, pre)
-            pre=node
-            (validRight, pre)=inorder(node.right, pre)
-            return (validLeft and validRight, pre)
-
-        if not root:
-            return True
-        (valid, _) = inorder(root, pre=None)
-        return valid
-        
-        
-    def isValidBSTUseList(self, root: Optional[TreeNode]) -> bool:
-        def inorder(node: TreeNode, r: list):
-            if not node:
-                return
-            inorder(node.left, r)
-            r.append(node.val)
-            inorder(node.right, r)
-
-        if not root:
-            return False
-        r=[]
-        inorder(root, r)
-        for i in range(len(r)-1):
-            if r[i]>=r[i+1]:
-                return False
-        return True
+            return None
+        n=root
+        while n:
+            if val==n.val:
+                return n
+            elif val<n.val:
+                n=n.left
+            elif val>n.val:
+                n=n.right
+        return None
 
 import unittest
 

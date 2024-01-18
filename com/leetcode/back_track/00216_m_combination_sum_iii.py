@@ -2,6 +2,22 @@ from typing import List
 
 class Solution:
     def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        def backtrack(k, n, start, r: list, path: list):
+            if len(path)==k:
+                if sum(path)==n:
+                    r.append(path[:])
+                return
+            for i in range(start, (9+1)-(k-len(path))+1):
+                path.append(i)
+                if sum(path)<=n:
+                    backtrack(k, n, i+1, r, path)
+                path.pop()
+
+        if n<=0 or k<=0 or k>9:
+            return []
+        r=[]
+        backtrack(k, n, 1, r=r, path=[])
+        return r
         
         
 
