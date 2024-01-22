@@ -1,11 +1,8 @@
 from typing import List
 
 class Solution:
-    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        if not root or not p or not q:
-            return None
-        pl,ql=list(),list()
-        self.findPath(root,p,pl),self.findPath(root,q,ql)
+    def canPartition(self, nums: List[int]) -> bool:
+        
         
 
 import unittest
