@@ -4,7 +4,49 @@ from typing import Deque
 
 class Solution:
 
+    # Monotonic stack to calculate each water area horizontally
     def trap(self, height: List[int]) -> int:
+        if not height or len(height)<=2:
+            return 0
+        total,n,st=0,len(height),[0]
+        for i in range(1,n):
+            cur=height[i]
+            while st and cur>=height[st[-1]]:
+                midIdx=st.pop()
+                mid=height[midIdx]
+                if st:
+                    leftIdx=st[-1]
+                    left=height[leftIdx]
+                    total+=(min(cur,left) - mid) * (i - leftIdx - 1)
+            st.append(i)
+        return total
+
+
+    # Two pointer
+    def trapTwoPointer(self, height: List[int]) -> int:
+        if not height or len(height)<=2:
+            return 0
+        n=len(height)
+        # Find highest to left of each
+        highLeft = [0]*n
+        highLeft[0] = height[0]
+        for i in range(1,n):
+            highLeft[i] = max(height[i], highLeft[i-1])
+
+        # Find highest to right of each
+        highRight = [0]*n
+        highRight[n-1] = height[n-1]
+        for i in range(n-2, -1, -1):
+            highRight[i] = max(height[i], highRight[i+1])
+
+        total = 0
+        for i in range(n):
+            water = min(highLeft[i], highRight[i]) - height[i]
+            total += water if water > 0 else 0
+        return total
+
+    # Divide
+    def trapDivide(self, height: List[int]) -> int:
 
         def calcF(prev,next,tallest):
             area=0
