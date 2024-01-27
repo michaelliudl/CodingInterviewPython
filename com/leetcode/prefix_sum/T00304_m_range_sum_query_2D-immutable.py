@@ -1,61 +1,22 @@
-from typing import List,Deque
+from typing import List
+
+class NumMatrix:
+
+    def __init__(self, matrix: List[List[int]]):
+        pass
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        pass
+
+
+# Your NumMatrix object will be instantiated and called as such:
+# obj = NumMatrix(matrix)
+# param_1 = obj.sumRegion(row1,col1,row2,col2)
 
 class Solution:
 
-    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-
-        def dfs(start):
-            nonlocal r,found
-            if len(used)==n:
-                r=path[:]
-                found=True
-                return
-            for i in range(n):
-                if not found and not i in used:
-                    s,e=tickets[i]
-                    if s==start:
-                        path.append(e)
-                        used[i]=1
-                        dfs(e)
-                        del used[i]
-                        path.pop()
-
-        if not tickets: return []
-        tickets.sort()
-        used,n={},len(tickets)
-        path,r,found=['JFK'],[],False
-        dfs(start='JFK')
-        return r
-
-    # Backtrack time out on test case #81
-    def findItineraryBacktrack(self, tickets: List[List[str]]) -> List[str]:
-        def backtrack(tickets, used, path):
-            if sum(used)==len(tickets):
-                return path
-            start=path[-1]
-            for i,v in enumerate(tickets):
-                if used[i]:
-                    continue
-                if v[0]==start:
-                    end=v[1]
-                    endIndex=i
-                    path.append(end)
-                    used[endIndex]=1
-                    r=backtrack(tickets, used, path)
-                    if r:
-                        return r
-                    path.pop()
-                    used[endIndex]=0
-            return []
-
-        if not tickets:
-            return []
-        # Sort, then first valid path is lexical smallest
-        tickets.sort()
-        used=[0]*len(tickets)
-        path=['JFK']
-        backtrack(tickets, used, path)
-        return path
+    def checkSubarraySum(self, nums: List[int], k: int) -> bool:
+        pass
 
 import unittest
 
@@ -68,8 +29,8 @@ class TestSolution(unittest.TestCase):
         #                  ["JFK","ATL","JFK","SFO","ATL","SFO"])
         # self.assertEqual(s.findItinerary(tickets = [["JFK","KUL"],["JFK","NRT"],["NRT","JFK"]]),
         #                  ["JFK","NRT","JFK","KUL"])
-        # self.assertEqual(s.findItinerary(tickets = [['AAA', 'BBB'], ['ATL', 'AAA'], ['BBB', 'ATL'], ['JFK', 'ATL'], ['JFK', 'SFO'], ['SFO', 'JFK']]),
-        #                  ['JFK', 'SFO', 'JFK', 'ATL', 'AAA', 'BBB', 'ATL'])
+        self.assertEqual(s.findItinerary(tickets = [['AAA', 'BBB'], ['ATL', 'AAA'], ['BBB', 'ATL'], ['JFK', 'ATL'], ['JFK', 'SFO'], ['SFO', 'JFK']]),
+                         ['JFK', 'SFO', 'JFK', 'ATL', 'AAA', 'BBB', 'ATL'])
         self.assertEqual(s.findItinerary(tickets = [["JFK","SFO"],["JFK","ATL"],["SFO","JFK"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"],["ATL","AAA"],["AAA","BBB"],["BBB","ATL"]]),
                          ["JFK","SFO","JFK","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL","AAA","BBB","ATL"])
         
