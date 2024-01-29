@@ -2,27 +2,29 @@ from typing import List
 
 class Solution:
 
-    # dp[i][j] is length of longest panlindrome of substring s[i:j] inclusive
-    # dp[i][j] = dp[i+1][j-1] if s[i]==s[j]     By traverse i backwards and j forwards from i
-    # dp[i][j] = max(dp[i+1][j], dp[i][j-1]) if s[i]!=s[j]
+    # dp[i][j] is where substring s[i:j] inclusive is palindrome, default is False
+    # dp[i][j] = True               If s[i]==s[j] and i==j (single char) or abs(i-j)==1 (double)
+    # dp[i][j] = dp[i+1][j-1]       If s[i]==s[j] and abs(i-j)>1    (substring is palindrome or not)
+    # Traverse i backwards and j forwards from i
     def longestPalindrome(self, s: str) -> str:
         if not s:
             return s
         n=len(s)
-        dp=[[0]*n for i in range(n)]
+        left,right,longest=-1,-1,0          # Track longest paralindrome length and boundary
+        dp=[[False]*n for i in range(n)]
         for i in range(n-1,-1,-1):
             for j in range(i,n):
-                if i==j:
-                    dp[i][j]=1
-                elif s[i]==s[j]:
-                    dp[i][j]=dp[i+1][j-1]+2
-                else:
-                    dp[i][j]=max(dp[i+1][j], dp[i][j-1])
-        longest=dp[0][n-1]
-        for i in range(n):
-            for j in range(0,i+1):
-                if dp[i][i+j]==longest:
-                    return s[i:j+1]
+                if s[i]==s[j]:
+                    if abs(j-i)<=1:
+                        dp[i][j]=True
+                    else:
+                        dp[i][j]=dp[i+1][j-1]
+                if dp[i][j]:
+                    curLen=j+1-i
+                    if curLen>longest:
+                        longest=curLen
+                        left,right=i,j
+        return s[left:right+1]
         
 
     def longestPalindromeTwoPointer(self, s: str) -> str:
@@ -64,7 +66,8 @@ import unittest
 class TestSolution(unittest.TestCase):
     def testLongestPalindrome(self):
         s = Solution()
-        self.assertEqual(s.longestPalindrome(s = "babad"), 'bab')
+        self.assertEqual(s.longestPalindrome(s = "aacabdkacaa"), 'aca')
+        self.assertEqual(s.longestPalindrome(s = "babad"), 'aba')
         self.assertEqual(s.longestPalindrome(s = "cbbd"), 'bb')
         
 
