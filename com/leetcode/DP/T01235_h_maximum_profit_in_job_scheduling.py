@@ -3,7 +3,7 @@ from typing import List
 class Solution:
 
 
-    # Memory limit exceed when endtime is 10**9
+    # Memory limit exceed when endtime is 10**9 
     # dp[i] is max profit at time i
     # dp[i] = max(dp[i-1], loop(dp[i-timespan[j] + profit[j]]))     Loop j over all jobs ending at i. Or don't choose these jobs.
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
