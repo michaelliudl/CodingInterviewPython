@@ -4,10 +4,15 @@ from typing import Deque
 class StockSpanner:
 
     def __init__(self):
-        pass
+        self.stack = []
 
     def next(self, price: int) -> int:
-        pass
+        total = 1
+        while self.stack and self.stack[-1][0] <= price:
+            top = self.stack.pop()
+            total += top[1]
+        self.stack.append((price, total))
+        return total
 
 
 # Your StockSpanner object will be instantiated and called as such:

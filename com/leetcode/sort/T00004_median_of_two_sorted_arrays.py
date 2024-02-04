@@ -1,7 +1,7 @@
 from typing import List
 
 class Solution:
-    # O(m+n)
+    # O(m+n) TODO
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
         if (not nums1 and not nums2) or (len(nums1)==0 and len(nums2)==0):
             return 0

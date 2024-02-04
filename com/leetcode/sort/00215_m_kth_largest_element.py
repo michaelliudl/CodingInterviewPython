@@ -14,7 +14,38 @@ class Solution:
                 heapq.heappush(h,n)
         return h[0]
     
+    # TODO Fix less than
     def findKthLargestQuickSelect(self, nums: List[int], k: int) -> int:
+
+        def quickSelect(nums, low, high, target):
+            if low < high:
+                pivot_index = partition(nums, low, high)
+                if pivot_index == target:
+                    return nums[target]
+                elif pivot_index < target:
+                    return quickSelect(nums, low = pivot_index + 1, high = high, target = target)
+                else:
+                    return quickSelect(nums, low = low, high = pivot_index, target = target)
+            return 0
+        
+        def partition(nums, low, high):
+            pivot_index = random.randint(low, high)
+            pivot = nums[pivot_index]
+            nums[pivot_index], nums[high - 1] = nums[high - 1], nums[pivot_index]
+            
+            i=low
+            for j in range(low, high):
+                if nums[j] <= pivot:
+                    nums[i], nums[j] = nums[j], nums[i]
+                    i+=1
+            nums[i], nums[high - 1] = nums[high - 1], nums[i]
+            return i
+
+        n=len(nums)
+        return quickSelect(nums, low=0, high=n, target=(n-k))       # Quick select finds kth smallest
+    
+    # TODO Fix timeout
+    def findKthLargestQuickSelect_1(self, nums: List[int], k: int) -> int:
         return self.quickSelect(nums, 0, len(nums) - 1, (len(nums)-k))
     
     def quickSelect(self, nums: List[int], low: int, high: int, k: int) -> int:

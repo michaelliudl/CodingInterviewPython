@@ -2,7 +2,18 @@ from typing import List
 
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        pass
+        if not nums: return 0
+        candidates=set(nums)
+        ans = 0
+        for num in nums:
+            if num-1 in candidates:     # Find starting number of potential consecutives
+                continue
+            curLen = 0
+            while num in candidates:
+                num += 1
+                curLen += 1
+            ans = max(ans, curLen)
+        return ans
 
 import unittest
 
