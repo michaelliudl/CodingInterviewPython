@@ -2,7 +2,18 @@ from typing import List
 
 class Solution:
     def longestPalindrome(self, s: str) -> int:
-        pass
+        if not s: return 0
+        d={}
+        for c in s:
+            if c in d: d[c]+=1
+            else: d[c]=1
+        ans,hasOdd=0,False
+        for _,v in d.items():
+            if v%2==0: ans+=v
+            else:
+                hasOdd=True
+                ans+=(v-1)
+        return ans+1 if hasOdd else ans
 
 import unittest
 
