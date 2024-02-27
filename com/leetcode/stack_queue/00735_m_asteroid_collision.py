@@ -28,32 +28,7 @@ class Solution:
 import unittest
 
 class TestSolution(unittest.TestCase):
-    def testMinStack(self):
-        s = MinStack()
-        s.push(-2)
-        s.push(0)
-        s.push(-3)
-        self.assertEqual(s.getMin(), -3)
-        s.pop()
-        self.assertEqual(s.top(), 0)
-        self.assertEqual(s.getMin(), -2)
-        s.pop()
-        s.pop()
-        self.assertEqual(s.getMin(), float('inf'))
-
-    def testMinStack_1(self):
-        s = MinStack()
-        s.push(2)
-        s.push(0)
-        s.push(3)
-        s.push(0)
-        self.assertEqual(s.getMin(), 0)
-        s.pop()
-        self.assertEqual(s.getMin(), 0)
-        s.pop()
-        self.assertEqual(s.getMin(), 0)
-        s.pop()
-        self.assertEqual(s.getMin(), 2)
+    pass
 
 
 
