@@ -1,7 +1,7 @@
 from typing import List
 
 class Solution:
-    def subarraySum(self, nums: List[int], k: int) -> int:
+    def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:
         if not path:
             return None
         l=[s for s in path.split('/') if s]
