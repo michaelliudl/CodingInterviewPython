@@ -7,7 +7,7 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    def getAverages(self, nums: List[int], k: int) -> List[int]:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if not root or not p or not q:
             return None
         pl,ql=list(),list()
