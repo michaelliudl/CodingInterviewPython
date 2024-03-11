@@ -1,22 +1,14 @@
 import math
 # Add any extra import statements you may need here
-import heapq
+
 
 # Add any helper functions you may need here
 
 
-def maxCandies(arr, k):
+def minOverallAwkwardness(arr):
   # Write your code here
-  if not arr or k <= 0:
-    return 0
-  arr = list(map(lambda num: -num, arr))
-  heapq.heapify(arr)
-  result = 0
-  for _ in range(k):
-    num = heapq.heappop(arr)
-    result += (-num)
-    heapq.heappush(arr, -(-num // 2))
-  return result
+  
+
 
 
 
@@ -53,16 +45,14 @@ def check(expected, output):
   test_case_number += 1
 
 if __name__ == "__main__":
-  n_1, k_1 = 5, 3
-  arr_1 = [2, 1, 7, 4, 2]
-  expected_1 = 14
-  output_1 = maxCandies(arr_1, k_1)
+  arr_1 = [5, 10, 6, 8]
+  expected_1 = 4
+  output_1 = minOverallAwkwardness(arr_1)
   check(expected_1, output_1)
 
-  n_2, k_2 = 9, 3
-  arr_2 = [19, 78, 76, 72, 48, 8, 24, 74, 29]
-  expected_2 = 228
-  output_2 = maxCandies(arr_2, k_2)
+  arr_2 = [1, 2, 5, 3, 7]
+  expected_2 = 4
+  output_2 = minOverallAwkwardness(arr_2)
   check(expected_2, output_2)
 
   # Add your own test cases here

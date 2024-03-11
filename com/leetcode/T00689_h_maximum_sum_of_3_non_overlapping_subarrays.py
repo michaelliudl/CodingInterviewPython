@@ -2,29 +2,18 @@ from typing import List
 
 class Solution:
     def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:
-        if not path:
-            return None
-        l=[s for s in path.split('/') if s]
-        st=list()
-        for s in l:
-            if s=='.':
-                continue
-            if s=='..':
-                if len(st)>0:
-                    st.pop()
-                continue
-            st.append(s)
-        return '/'+'/'.join(st)
+        if not nums or k <= 0:
+            return []
 
 
 import unittest
 
 class TestSolution(unittest.TestCase):
-    def testSimplifyPath(self):
+    def testMaxSumOfThreeSubarrays(self):
         s = Solution()
-        self.assertEqual(s.simplifyPath("/home/"), "/home")
-        self.assertEqual(s.simplifyPath("/../"), "/")
-        self.assertEqual(s.simplifyPath("/home//foo/"), "/home/foo")
+        self.assertEqual(s.maxSumOfThreeSubarrays("/home/"), "/home")
+        self.assertEqual(s.maxSumOfThreeSubarrays("/../"), "/")
+        self.assertEqual(s.maxSumOfThreeSubarrays("/home//foo/"), "/home/foo")
 
 
 

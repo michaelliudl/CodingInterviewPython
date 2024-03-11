@@ -15,13 +15,13 @@ class Solution:
             return head
         dh=ListNode(-1,head)
         s,f=dh,dh
-        while True:
-            if f and not f.next:
-                return s.next
-            if not f:
-                return s
-            s=s.next
+        while f and f.next:
             f=f.next.next
+            s=s.next
+        if not f:
+            return s
+        if not f.next:
+            return s.next
         return None
 
 import unittest
