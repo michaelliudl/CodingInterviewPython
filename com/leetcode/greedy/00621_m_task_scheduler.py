@@ -2,8 +2,27 @@ from typing import List, Deque
 
 class Solution:
 
-    # Simulation with queue. Almost time out
+    # Greedily take max frequency tasks and times it with cool down, to get total time to complete it
+    # Find total number of tasks with frequency equals to the most frequency
+    # Add above to get time to run most frequent tasks
+    # Return max of above and total number of tasks
     def leastInterval(self, tasks: List[str], n: int) -> int:
+        if not tasks:
+            return 0
+        taskFrequency = {}
+        for task in tasks:
+            taskFrequency[task] = taskFrequency.get(task, 0) + 1
+        maxFrequency = max(taskFrequency.values())
+        maxFrequencyTime = (maxFrequency - 1) * (n + 1)
+        numberMaxFrequencyTasks = 0
+        for _, frequency in taskFrequency.items():
+            numberMaxFrequencyTasks += 1 if frequency == maxFrequency else 0
+        maxFrequencyTime += numberMaxFrequencyTasks
+        return max(maxFrequencyTime, len(tasks))
+        
+
+    # Simulation with queue. Almost time out
+    def leastIntervalSimulate(self, tasks: List[str], n: int) -> int:
         if not tasks or n < 0: return 0
         cache={}
         for task in tasks:

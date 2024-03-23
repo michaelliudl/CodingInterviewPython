@@ -2,8 +2,24 @@ from typing import List
 
 class Solution:
 
-    # Sort by end position and loop forward. If next start is > current end, means no more overlapping, update end
+    # Sort by start. Find other start <= current end, also update current end to other end if other end is smaller.
     def findMinArrowShots(self, points: List[List[int]]) -> int:
+        if not points:
+            return 0
+        points.sort()
+        result = 1
+        burstEnd = points[0][1]
+        for i in range(1, len(points)):
+            start, end = points[i]
+            if start > burstEnd:
+                result += 1
+                burstEnd = end
+            else:
+                burstEnd = min(burstEnd, end)
+        return result
+
+    # Sort by end position and loop forward. If next start is > current end, means no more overlapping, update end
+    def findMinArrowShotsSortByEnd(self, points: List[List[int]]) -> int:
         if not points: return 0
         points.sort(key=lambda p: p[1])
         r,end=1,points[0][1]

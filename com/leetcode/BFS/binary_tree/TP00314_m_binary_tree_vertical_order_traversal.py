@@ -10,6 +10,7 @@ class TreeNode:
 
 class Solution:
 
+    # Vertical order. Difference with 987?
     def levelOrderIter(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []

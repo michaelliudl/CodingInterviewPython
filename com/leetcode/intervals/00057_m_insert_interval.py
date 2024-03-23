@@ -2,7 +2,34 @@ from typing import List
 
 class Solution:
 
+    # For loop
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        if not intervals:
+            return [newInterval]
+        if not newInterval:
+            return intervals
+        result = []
+        newStart, newEnd = newInterval
+        insertStart, insertEnd = newStart, newEnd
+        inserted = False
+        for index, interval in enumerate(intervals):
+            start, end = interval
+            if end < newStart:
+                result.append(interval)
+            elif end >= newStart and start <= newEnd:
+                insertStart = min(insertStart, start)
+                insertEnd = max(insertEnd, end)
+            elif start > newEnd:
+                if not inserted:
+                    result.append([insertStart, insertEnd])
+                    inserted = True
+                result.append(interval)
+        if not inserted:
+            result.append([insertStart, insertEnd])
+        return result
+
+    # While loop
+    def insertWhile(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         if not newInterval: return intervals
         start,end=newInterval
         startMerge,endMerge=newInterval
