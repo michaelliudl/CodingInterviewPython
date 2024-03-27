@@ -11,18 +11,16 @@ class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
 
         def lca(node, p, q):
-            if not node or node.val == p.val or node.val == q.val:
+            if not node or node == p or node == q:
                 return node
             lcaLeft = lca(node.left, p, q)
             lcaRight = lca(node.right, p, q)
             if lcaLeft and lcaRight:
                 return node
-            if lcaLeft and not lcaRight:
+            elif lcaLeft:
                 return lcaLeft
-            elif not lcaLeft and lcaRight:
-                return lcaRight
             else:
-                return None
+                return lcaRight
 
         if not root or not p or not q:
             return None

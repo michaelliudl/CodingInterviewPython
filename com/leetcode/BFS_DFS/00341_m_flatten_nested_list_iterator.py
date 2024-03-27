@@ -23,15 +23,27 @@ from typing import Optional,List,Deque
 #        """
 
 class NestedIterator:
+
+    # Queue and recursively enqueue integers within nested lists
     def __init__(self, nestedList: [NestedInteger]):
-        self.nestedList = nestedList
-        self.stack = [0]
+
+        def enqueue(nestedList):
+            for nested in nestedList:
+                if nested.isInteger():
+                    self.queue.append(nested.getInteger())
+                else:
+                    enqueue(nested.getList())
+
+        self.queue = Deque()
+        enqueue(nestedList)
     
     def next(self) -> int:
-        pass
+        if self.queue:
+            return self.queue.popleft()
+        return -1
     
     def hasNext(self) -> bool:
-        pass
+        return len(self.queue) > 0
 
 # Your NestedIterator object will be instantiated and called as such:
 # i, v = NestedIterator(nestedList), []

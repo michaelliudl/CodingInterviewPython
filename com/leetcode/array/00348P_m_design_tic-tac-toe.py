@@ -4,10 +4,37 @@ class TicTacToe:
 
     def __init__(self, n: int):
         self.n = n
-        self.grid = [[0] * n for _ in range(n)]
-        
-    # Brute
+        self.rows = [0] * n     # Track each row, column, diag and anti-diag values
+        self.cols = [0] * n
+        self.diag = 0
+        self.antiDiag = 0
+        # self.grid = [[0] * n for _ in range(n)]
+
     def move(self, row: int, col: int, player: int) -> int:
+        value = 1 if player == 1 else -1
+        target = self.n if player == 1 else -self.n
+
+        if row == col:                  # Played on diag
+            self.diag += value
+            if self.diag == target:
+                return player
+            
+        if row + col == self.n - 1:     # Played on anti-diag
+            self.antiDiag += value
+            if self.antiDiag == target:
+                return player
+        
+        self.rows[row] += value
+        if self.rows[row] == target:
+            return player
+        
+        self.cols[col] += value
+        if self.cols[col] == target:
+            return player
+        return 0
+    
+    # Brute
+    def moveWithGrid(self, row: int, col: int, player: int) -> int:
 
         def check():
             for row in self.grid:
