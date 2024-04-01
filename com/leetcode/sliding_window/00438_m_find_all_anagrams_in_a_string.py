@@ -2,8 +2,39 @@ from typing import List
 
 class Solution:
 
-    # Sliding window count
+    # Simplified code
     def findAnagrams(self, s: str, p: str) -> List[int]:
+
+        def cover(sCount, pCount):
+            if len(sCount) < len(pCount):
+                return False
+            for k, v in pCount.items():
+                if k not in sCount or v > sCount[k]:
+                    return False
+            return True
+
+        if not s or not p or len(s) < len(p):
+            return []
+        pCount = {}
+        for char in p:
+            pCount[char] = pCount.get(char, 0) + 1
+        sCount = {}
+        left = 0
+        result = []
+        for index, char in enumerate(s):
+            sCount[char] = sCount.get(char, 0) + 1
+            while cover(sCount, pCount):            # While substring of s has all chars in p
+                if sCount == pCount:                # While they are anagrams
+                    result.append(left)
+                out = s[left]
+                sCount[out] -= 1
+                if sCount[out] == 0:
+                    del sCount[out]
+                left += 1
+        return result
+
+    # Sliding window count
+    def findAnagramsOld(self, s: str, p: str) -> List[int]:
 
         def eq(cache, window):
             for c in window:
