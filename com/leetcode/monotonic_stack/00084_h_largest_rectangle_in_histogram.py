@@ -8,20 +8,19 @@ class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         if not heights:
             return 0
-        h=[0]+heights+[0]       # Add dummy elements to front for getting start index, and to back for all ascending case
-        st,n,r=[0],len(h),0
-        for i in range(1,n):
-            cur=h[i]
-            while st and cur < h[st[-1]]:
-                midIdx = st.pop()
-                mid = h[midIdx]
-                leftIdx = st[-1]
-                left = h[leftIdx]
-                area = mid * (i - leftIdx - 1)
-                r = max(r, area)
-            st.append(i)
-        return r
-
+        heights = [0] + heights + [0]   # Add dummy elements to front for getting start index, and to back for all ascending case
+        stack = [0]             # Stack holds index
+        result = 0
+        for i in range(1, len(heights)):
+            curHeight = heights[i]
+            while stack and curHeight < heights[stack[-1]]:
+                midIndex = stack.pop()
+                midHeight = heights[midIndex]
+                leftIndex = stack[-1]
+                area = midHeight * (i - leftIndex - 1)
+                result = max(result, area)
+            stack.append(i)
+        return result
 
     # Two pointer to find index of first smaller element to each index. First and last element is initialized -1 and n
     def largestRectangleAreaTwoPointer(self, heights: List[int]) -> int:

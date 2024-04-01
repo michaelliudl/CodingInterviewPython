@@ -1,7 +1,24 @@
 from typing import List
 
 class Solution:
+
     def generateParenthesis(self, n: int) -> List[str]:
+
+        def dfs(left, right, string):
+            if left == 0 and right == 0:
+                result.append(string)
+            if left > 0:
+                dfs(left - 1, right, string + '(')
+            if left < right:
+                dfs(left, right - 1, string + ')')
+
+        result = []
+        dfs(left=n, right=n, string='')
+        return result
+
+
+    # Use set to dedup
+    def generateParenthesisSet(self, n: int) -> List[str]:
         if n == 0:
             return ['']
         if n == 1:

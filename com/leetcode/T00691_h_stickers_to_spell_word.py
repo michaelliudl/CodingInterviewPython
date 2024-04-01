@@ -96,7 +96,11 @@ class Solution:
             return True
 
         def countStickers():
-            result = [countSticker(sticker) for sticker in stickers]
+            result = []
+            for sticker in stickers:
+                count = countSticker(sticker)
+                if count:
+                    result.append(count)
             return result
             # if not result:
             #     return result
