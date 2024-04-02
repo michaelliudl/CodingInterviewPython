@@ -46,6 +46,8 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(s.minimumSubarrayLength(nums = [1,2], k = 0), 1)
         self.assertEqual(s.minimumSubarrayLength(nums = [1,2,3], k = 2), 1)
         self.assertEqual(s.minimumSubarrayLength(nums = [2,1,8], k = 10), 3)
+        self.assertEqual(s.minimumSubarrayLength(nums = [16,1,2,20,32], k = 45), 2)
+
 
 if __name__ == '__main__':
     unittest.main()

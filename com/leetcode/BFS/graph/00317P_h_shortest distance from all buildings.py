@@ -66,25 +66,6 @@ class Solution:
                     result = min(result, buildingDist[row][col][1])
         return result if result < math.inf else -1
 
-    def minimumSubarrayLength(self, nums: List[int], k: int) -> int:
-        if not nums or k < 0:
-            return -1
-        left = 0
-        result = math.inf
-        orValue = 0
-        prefix = nums[:]
-        for i in range(1, len(prefix)):
-            prefix[i] |= prefix[i - 1]
-        for i, num in enumerate(nums):
-            orValue |= num
-            while left <= i and orValue >= k:
-                result = min(result, i - left + 1)
-                out = nums[left]
-                orValue ^= out
-                left += 1
-        return result if result < math.inf else -1
-
-
 import unittest
 
 class TestSolution(unittest.TestCase):
@@ -93,13 +74,6 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(s.shortestDistance(grid = [[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]]), 7)
         self.assertEqual(s.shortestDistance(grid = [[1,0]]), 1)
         self.assertEqual(s.shortestDistance(grid = [[1]]), -1)
-
-    def testMinimumSubarrayLength(self):
-        s = Solution()
-        self.assertEqual(s.minimumSubarrayLength(nums = [16,1,2,20,32], k = 45), 2)
-        self.assertEqual(s.minimumSubarrayLength(nums = [1,2,3], k = 2), 1)
-        self.assertEqual(s.minimumSubarrayLength(nums = [2,1,8], k = 10), 3)
-        self.assertEqual(s.minimumSubarrayLength(nums = [1,2], k = 0), 1)
         
 
 

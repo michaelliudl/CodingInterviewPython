@@ -2,7 +2,37 @@ from typing import List
 
 class Solution:
 
-    def singleNonDuplicate(self, nums: List[int]) -> int:
+    # Modified binary search
+    def singleNonDuplicate1(self, nums: List[int]) -> int:
+        if not nums:
+            return - 1
+        if len(nums) < 3:
+            return nums[0]
+        n = len(nums)
+        low, high = 0, n
+        while low < high:
+            mid = low + (high - low) // 2
+            # Result value doesn't equal to neighbors before and after
+            if (mid == 0 and nums[mid] != nums[mid + 1]) \
+                or (mid == n - 1 and nums[mid - 1] != nums[mid]) \
+                    or (nums[mid] != nums[mid - 1] and nums[mid] != nums[mid + 1]):
+                return nums[mid]
+            # Move low/high based on: before single element, pair's first index is odd, second is even;
+            # After single element, pair's first index is even, second is odd
+            if mid > 0 and nums[mid] == nums[mid - 1]:
+                if mid % 2 == 0:
+                    high = mid
+                else:
+                    low = mid + 1
+            elif mid < n - 1 and nums[mid] == nums[mid + 1]:
+                if mid % 2 == 1:
+                    high = mid
+                else:
+                    low = mid + 1
+        return -1
+
+    # Modified binary search
+    def singleNonDuplicate1(self, nums: List[int]) -> int:
         if not nums: return -1
         if len(nums)<3: return nums[0]
         n = len(nums)
