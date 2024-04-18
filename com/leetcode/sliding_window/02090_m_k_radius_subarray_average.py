@@ -1,11 +1,5 @@
 from typing import List
 
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
 class Solution:
     def getAverages(self, nums: List[int], k: int) -> List[int]:
         if not nums:

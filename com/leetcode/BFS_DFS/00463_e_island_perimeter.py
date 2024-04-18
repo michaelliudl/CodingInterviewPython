@@ -1,8 +1,38 @@
 from typing import List,Deque
 
 class Solution:
-    
+
+    # DFS simplified code
     def islandPerimeter(self, grid: List[List[int]]) -> int:
+
+        def dfs(x, y):
+            nonlocal res
+            if x < 0 or x >= m or y < 0 or y >= n:
+                res += 1
+                return
+            if grid[x][y] == 0:
+                res += 1
+                return
+            if grid[x][y] == 2:
+                return
+            grid[x][y] = 2
+            dfs(x - 1, y)
+            dfs(x + 1, y)
+            dfs(x, y - 1)
+            dfs(x, y + 1)
+
+        if not grid:
+            return 0
+        m, n = len(grid), len(grid[0])
+        res = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    dfs(i, j)
+                    return res
+    
+    # Scan each cell, if value = 1, assume it contributes 4 to perimeter, then minus 1 per each direct neighbor 1s
+    def islandPerimeterScanCells(self, grid: List[List[int]]) -> int:
 
         d=[(-1,0),(1,0),(0,-1),(0,1)]
 

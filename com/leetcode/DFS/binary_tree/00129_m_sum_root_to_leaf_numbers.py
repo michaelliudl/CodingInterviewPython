@@ -9,7 +9,26 @@ class TreeNode:
 
 class Solution:
 
+    # Optimal
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
+
+        def dfs(node, path):
+            nonlocal result
+            if not node:
+                return
+            if not node.left and not node.right:
+                result += path * 10 + node.val
+                return
+            dfs(node.left, path * 10 + node.val)
+            dfs(node.right, path * 10 + node.val)
+
+        if not root:
+            return 0
+        result = 0
+        dfs(root, path = 0)
+        return result
+
+    def sumNumbers1(self, root: Optional[TreeNode]) -> int:
 
         def dfs(node):
             nonlocal r

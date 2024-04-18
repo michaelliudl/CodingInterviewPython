@@ -3,7 +3,7 @@ import heapq
 
 class Solution:
 
-
+    # Mono large stack holding index
     def canSeePersonsCount(self, heights: List[int]) -> List[int]:
         if not heights:
             return heights

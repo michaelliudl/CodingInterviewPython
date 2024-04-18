@@ -2,7 +2,21 @@ from typing import List
 
 class Solution:
 
+    # Binary search to find the smallest index that has at least `k` missing positive integers before it
     def findKthPositive(self, arr: List[int], k: int) -> int:
+        if not arr:
+            return k
+        low, high = 0, len(arr)
+        while low < high:
+            mid = low + (high - low) // 2
+            if arr[mid] - mid - 1 >= k:
+                high = mid
+            else:
+                low = mid + 1
+        return low + k
+
+    # O(n)
+    def findKthPositive1(self, arr: List[int], k: int) -> int:
         if not arr:
             return k
         missing = 1

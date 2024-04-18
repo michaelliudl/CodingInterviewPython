@@ -5,7 +5,22 @@ from typing import Deque
 class Solution:
 
     # Monotonic stack to calculate each water area horizontally
+    # Simplified code
     def trap(self, height: List[int]) -> int:
+        result = 0
+        stack = []
+        for index, h in enumerate(height):
+            while stack and h >= height[stack[-1]]:
+                midIndex = stack.pop()
+                midH = height[midIndex]
+                if stack:
+                    area = (min(h, height[stack[-1]]) - midH) * (index - stack[-1] - 1)
+                    result += area
+            stack.append(index)
+        return result
+
+    # Monotonic stack to calculate each water area horizontally
+    def trapStack(self, height: List[int]) -> int:
         if not height or len(height)<=2:
             return 0
         total,n,st=0,len(height),[0]

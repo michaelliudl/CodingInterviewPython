@@ -99,6 +99,8 @@ class FileSystem:
                 return node.files[fileName].content
         return ''
 
+    def error(self):
+        raise KeyError('Path does not exist')
 
 # Your FileSystem object will be instantiated and called as such:
 # obj = FileSystem()
@@ -153,6 +155,13 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(fs.ls('/'), [])
         fs.mkdir('/a/b/c')
         self.assertEqual(fs.ls('/a/b'), ['c'])
+
+    def testException(self):
+        with self.assertRaises(ZeroDivisionError):
+            1 / 0
+        fs = FileSystem()
+        with self.assertRaises(KeyError):
+            fs.error()
 
 if __name__ == '__main__':
     unittest.main()

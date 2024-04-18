@@ -1,11 +1,5 @@
 from typing import List
 
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
 class Solution:
     def numberOfSubstrings(self, s: str) -> int:
         if not s or len(s)<3: return 0

@@ -2,6 +2,8 @@ from typing import List
 
 class Solution:
 
+    # Prefix product before current
+    # Suffix product after current
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         if not nums: return nums
         n=len(nums)

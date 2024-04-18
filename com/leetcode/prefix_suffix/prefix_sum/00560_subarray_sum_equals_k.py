@@ -2,9 +2,22 @@ from typing import List
 
 class Solution:
 
-    # Prefix sum and use hash table to cache count of diffs
+    # Simiplified code
+    # Prefix sum and use hash table to cache count of prefix sums
     # Similar to 325, 560, 1658
     def subarraySum(self, nums: List[int], k: int) -> int:
+        prefixCount = {0: 1}            # diff == 0 should be put as 1
+        result = 0
+        prefixSum = 0
+        for num in nums:
+            prefixSum += num
+            diff = prefixSum - k        # prefixSum - k because we keep adding all nums
+            if diff in prefixCount:     # If `diff` exists in hash table as previous prefix sum
+                result += prefixCount[diff]
+            prefixCount[prefixSum] = prefixCount.get(prefixSum, 0) + 1
+        return result
+
+    def subarraySum1(self, nums: List[int], k: int) -> int:
         if not nums: return 0
         prefixSum, subArrayCount = 0, 0
         prefixSumToIndex = {0: 1}        # Track number of diff from prefixSum - k

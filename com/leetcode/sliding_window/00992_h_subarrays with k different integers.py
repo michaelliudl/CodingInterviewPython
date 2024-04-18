@@ -2,7 +2,7 @@ from typing import List
 
 class Solution:
 
-    # # of subarrays with K distinct elements = (# of subarrays with at most K distinct elements) - (# of subarrays with at most K - 1 distinct elements)
+    # number of subarrays with K distinct elements = (# of subarrays with at most K distinct elements) - (# of subarrays with at most K - 1 distinct elements)
     def subarraysWithKDistinct(self, nums: List[int], k: int) -> int:
 
         def subarraysWithAtMostKDistinct(k):

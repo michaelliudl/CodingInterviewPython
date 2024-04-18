@@ -22,6 +22,7 @@ class SparseVector:
                 self.pairs.append((index, num))
 
     # Return the dotProduct of two sparse vectors
+    # Follow up, only one vector is sparse, then use binary search on the non sparse to find index that match the index in the sparse one
     def dotProduct(self, vec: 'SparseVector') -> int:
         i = j = 0
         result = 0

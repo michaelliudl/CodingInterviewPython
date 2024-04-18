@@ -1,7 +1,27 @@
 from typing import List
 
 class Solution:
+
+    # Simplified, use stack to track unpaired paren's index
     def minRemoveToMakeValid(self, s: str) -> str:
+        if not s:
+            return ''
+        stack = []
+        for index, char in enumerate(s):
+            if char not in ('(',')'):
+                continue
+            if char == '(' or not stack or stack[-1][0] != '(':
+                stack.append((char, index))
+            else:
+                stack.pop()
+        result = []
+        unpairedIndex = set(elem[1] for elem in stack)
+        for index, char in enumerate(s):
+            if index not in unpairedIndex:
+                result.append(char)
+        return ''.join(result)
+    
+    def minRemoveToMakeValid1(self, s: str) -> str:
         if not s:
             return s
         st=[]

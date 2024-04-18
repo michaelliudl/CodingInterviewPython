@@ -1,13 +1,23 @@
 from typing import List
 
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
 class Solution:
+
+    # Simplified code
     def longestOnes(self, nums: List[int], k: int) -> int:
+        if not nums:
+            return 0
+        result = left = 0
+        for index, num in enumerate(nums):
+            if num == 0:
+                k -= 1
+            while k < 0:
+                if nums[left] == 0:
+                    k += 1
+                left += 1
+            result = max(result, (index - left + 1))
+        return result
+
+    def longestOnes1(self, nums: List[int], k: int) -> int:
         if not nums: return 0
         if len(nums) <= k: return k
         ans,slow,counter = 0,0,k

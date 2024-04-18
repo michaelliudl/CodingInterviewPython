@@ -1,6 +1,28 @@
 from typing import List
 import random
+
 class Solution:
+
+    # Simplified code
+    def __init__(self, w: List[int]):
+        self.prefix = w
+        for i in range(1, len(self.prefix)):
+            self.prefix[i] += self.prefix[i - 1]
+
+    def pickIndex(self) -> int:
+        totalWeight = self.prefix[-1]
+        target = random.randint(1, totalWeight)
+        low, high = 0, len(self.prefix)
+        while low < high:
+            mid = low + (high - low) // 2
+            if self.prefix[mid] == target:
+                return mid
+            elif self.prefix[mid] < target:
+                low = mid + 1
+            else:
+                high = mid
+        return low
+class Solution1:
     def __init__(self, w: List[int]):
         # Use prefix sum to accumulate weights
         self.prefixSum = [w[0]]

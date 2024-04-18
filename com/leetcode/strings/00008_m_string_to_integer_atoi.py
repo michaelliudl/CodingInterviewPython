@@ -3,6 +3,39 @@ from typing import List
 class Solution:
 
     def myAtoi(self, s: str) -> int:
+        signFound = False
+        positive = True
+        numStart = -1
+        numEnd = -1
+        for i, char in enumerate(s):
+            if char < '0' or char > '9':
+                if numStart < 0:
+                    if char not in (' ', '+', '-') or signFound:
+                        break
+                    elif char in ('+', '-'):
+                        if signFound:
+                            break
+                        positive = char == '+'
+                        signFound = True
+                else:
+                    numEnd = i
+                    break
+            elif numStart < 0:
+                numStart = i
+        if numStart >= 0 and numEnd < 0:
+            numEnd = len(s)
+        if 0 <= numStart <= numEnd:
+            result = 0
+            for i in range(numStart, numEnd):
+                result = result * 10 + (ord(s[i]) - ord('0'))
+            if positive:
+                return result if result <= 2**31 - 1 else 2**31 - 1
+            else:
+                result = -1 * result
+                return result if result >= -2**31 else -2**31
+        return 0
+
+    def myAtoi1(self, s: str) -> int:
         if not s: return 0
         ans = 0
         signValid, negative = True, False

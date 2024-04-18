@@ -2,6 +2,48 @@ from typing import List
 
 class Solution:
 
+    # Simplify code, TODO debug this time out
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+
+        def valid(row, col, option):
+            for i in range(n):
+                if i != row and board[i][col] == option:
+                    return False
+            for i in range(n):
+                if i != col and board[row][i] == option:
+                    return False
+            rowStart = (row // 3) * 3
+            colStart = (col // 3) * 3
+            for i in range(rowStart, rowStart + 3):
+                for j in range(colStart, colStart + 3):
+                    if (i != row or j != col) and board[i][j] == option:
+                        return False
+            return True
+
+        def dfs():
+            for row in range(n):
+                for col in range(n):
+                    if board[row][col] == '.':
+                        continue
+                    for i in range(n):
+                        option = str(i + 1)
+                        if valid(row, col, option):
+                            board[row][col] = option
+                            result = dfs()
+                            if result:
+                                return True
+                            board[row][col] = '.'
+                    return False
+            return True
+
+        if not board or len(board) != 9 or len(board[0]) != 9:
+            return
+        n = len(board)
+        dfs()
+
     def solveSudoku(self, board: List[List[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
