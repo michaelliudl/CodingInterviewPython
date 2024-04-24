@@ -2,6 +2,15 @@ from typing import List
 
 class Solution:
 
+    def maxSubArray(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        n,r,subSum=len(nums),nums[0],nums[0]
+        for i in range(1,n):
+            subSum=max(subSum+nums[i], nums[i])
+            r=max(r, subSum)
+        return r
+
     # dp[i] is max sum of subarray ended at i
     # dp[i] = max(dp[i-1] + nums[i], nums[i])
     def maxSubArrayDPNArray(self, nums: List[int]) -> int:
@@ -22,15 +31,6 @@ class Solution:
         for i,v in enumerate(nums):
             dp[i%2]=max(dp[(i-1)%2]+nums[i], nums[i]) if i>0 else nums[i]
             r=max(r, dp[i%2])
-        return r
-    
-    def maxSubArray(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
-        n,r,subSum=len(nums),nums[0],nums[0]
-        for i in range(1,n):
-            subSum=max(subSum+nums[i], nums[i])
-            r=max(r, subSum)
         return r
 
     # Greedy
