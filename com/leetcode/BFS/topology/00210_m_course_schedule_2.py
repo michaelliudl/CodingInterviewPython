@@ -7,10 +7,63 @@ class Node:
 
 class Solution:
 
-    # Union Find
-
-    # BFS
+    # Topological sort with Kahn's algorithm
+    # 1. Add all nodes with in-degree 0 to a queue.
+    # 2. While the queue is not empty:
+    #   2.1 Remove a node from the queue.
+    #   2.2 For each outgoing edge from the removed node, decrement the in-degree of the destination node by 1.
+    #   2.3 If the in-degree of a destination node becomes 0, add it to the queue.
+    # 3. If the queue is empty and there are still nodes in the graph, the graph contains a cycle and cannot be topologically sorted.
+    # 4. The nodes in the queue represent the topological ordering of the graph.
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        graph = [[] for _ in range(numCourses)]
+        inDegree = [0] * numCourses
+        for course, pre in prerequisites:
+            graph[pre].append(course)
+            inDegree[course] += 1       # Increment in-degree of course per each of its prerequisites
+        queue = Deque()
+        for i in range(numCourses):
+            if inDegree[i] == 0:
+                queue.append(i)
+        res = []
+        while queue:
+            course = queue.popleft()    # `course` with prerequisites or all prerequisites already taken
+            res.append(course)
+            for neighbor in graph[course]:
+                inDegree[neighbor] -= 1
+                if inDegree[neighbor] == 0:
+                    queue.append(neighbor)
+        return res if len(res) == numCourses else []    # There is cycle if we can't reduce all courses in-degree to 0
+
+    # DFS with states: 0 = Init, 1 = Visiting, 2 = Visited
+    def findOrderDFS(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+
+        def dfs(course):
+            if states[course] == 1:     # `course` is in seen again while dfs from another one
+                return True
+            if states[course] == 2:
+                return False
+            states[course] = 1
+            for neighbor in graph[course]:
+                if dfs(neighbor):
+                    return True
+            states[course] = 2
+            res.append(course)
+            return False
+
+        graph = [[] for _ in range(numCourses)]
+        for course, pre in prerequisites:
+            graph[pre].append(course)
+        states = [0] * numCourses
+        res = []
+        for i in range(numCourses):
+            if dfs(i):          # Any course has cycle
+                return []
+        res.reverse()           # We added course to result before its prerequites
+        return res
+
+    # BFS and collect courses without prerequisites and remove them from the graph
+    def findOrderBFS(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         
         def buildGraph():
             for a, b in prerequisites:

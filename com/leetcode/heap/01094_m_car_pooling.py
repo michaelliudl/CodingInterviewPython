@@ -1,32 +1,24 @@
 from typing import List
+import heapq
 
 class Solution:
     def carPooling(self, trips: List[List[int]], capacity: int) -> bool:
         if not trips:
             return True
         n = len(trips)
-        tripSorted = [None] * n
-        for i, [passengers, fromTime, toTime] in enumerate(trips):
-            tripSorted[i] = (fromTime, toTime, passengers)
+        tripSorted = [(fromTime, toTime, passengers) for passengers, fromTime, toTime in trips]
         tripSorted.sort()
-        capTaken = end = 0
+        capRem = capacity
+        heap = []
         for fromTime, toTime, passengers in tripSorted:
-            if end == 0:
-                end = toTime
-                capTaken = passengers
-                continue
-            elif fromTime < end:
-                capTaken += passengers
-            else:
-                capTaken = passengers
-            if capTaken > capacity:
+            while heap and heap[0][0] <= fromTime:
+                top = heapq.heappop(heap)
+                capRem += top[1]
+            if capRem < passengers:
                 return False
-            if end < toTime:
-                end = toTime
-                capTaken = passengers
+            heapq.heappush(heap, (toTime, passengers))
+            capRem -= passengers
         return True
-
-        
 
 
 import unittest
