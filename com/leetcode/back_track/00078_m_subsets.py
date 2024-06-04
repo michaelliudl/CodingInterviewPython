@@ -3,20 +3,20 @@ from typing import List
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
 
-        def backtrack(nums, startIndex, r, path):
+        def backtrack(nums, startIndex, path):
             if startIndex>=len(nums):
                 return
             for i in range(startIndex, len(nums)):
                 path.append(nums[i])
-                r.append(path[:])
-                backtrack(nums, i+1, r, path)
+                res.append(path[:])
+                backtrack(nums, i+1, path)
                 path.pop()
 
         if not nums:
             return []
-        r=[[]]
-        backtrack(nums, startIndex=0, r=r, path=[])
-        return r
+        res=[[]]
+        backtrack(nums, startIndex=0, path=[])
+        return res
 
 import unittest
 

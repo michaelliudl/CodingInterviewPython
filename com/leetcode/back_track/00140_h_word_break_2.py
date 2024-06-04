@@ -1,9 +1,32 @@
 from typing import List
+import functools
 
 class Solution:
 
+    # Backtrack indexes of `s`
     def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
-        pass
+
+        @functools.lru_cache(None)
+        def backtrack(index):
+            if index == len(s):
+                return ['']
+            res = []
+            for i in range(index, len(s)):
+                word = s[index:(i + 1)]
+                if word not in wordSet:
+                    continue
+                nextRes = backtrack(i + 1)
+                if not nextRes:
+                    continue
+                for string in nextRes:
+                    cur = word
+                    if string:
+                        cur += (' ' + string)
+                    res.append(cur)
+            return res
+
+        wordSet = set(wordDict)
+        return backtrack(index = 0)
 
 import unittest
 
