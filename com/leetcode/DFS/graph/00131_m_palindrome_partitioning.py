@@ -12,23 +12,23 @@ class Solution:
                     return False
             return True
 
-        def backtrack(s, startIndex, r: List[List[str]], path: List[str]):
-            if startIndex>=len(s):
-                r.append(path[:])
+        def backtrack(startIndex, path: List[str]):
+            if startIndex >= len(s):
+                res.append(path[:])
                 return
             for i in range(startIndex, len(s)):
-                prefix=s[startIndex:i+1]
+                prefix = s[startIndex:i + 1]
                 if not isPalindrome(prefix):
                     continue
                 path.append(prefix)
-                backtrack(s, i+1, r, path)
+                backtrack(i + 1, path)
                 path.pop()
 
         if not s:
             return []
-        r=[]
-        backtrack(s, 0, r, path=[])
-        return r
+        res=[]
+        backtrack(0, path=[])
+        return res
         
 
 import unittest

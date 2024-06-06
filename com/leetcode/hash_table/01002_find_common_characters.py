@@ -1,6 +1,8 @@
 from typing import List
 
 class Solution:
+
+    # TODO simplify code
     def commonChars(self, words: List[str]) -> List[str]:
         if not words or len(words)==0 or len(words[0])==0:
             return list()
