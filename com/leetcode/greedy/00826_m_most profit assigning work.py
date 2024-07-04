@@ -2,9 +2,27 @@ from typing import List
 
 class Solution:
 
+    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+        jobs = list(zip(difficulty, profit))
+        jobs.sort()
+        worker.sort()
+        i = j = 0
+        maxProf = res = 0
+        while i < len(jobs) and j < len(worker):
+            if worker[j] >= jobs[i][0]:
+                maxProf = max(maxProf, jobs[i][1])
+                i += 1
+            else:
+                res += maxProf
+                j += 1
+        while j < len(worker):
+            res += maxProf
+            j += 1
+        return res
+
     # Sort job's difficulty and profit pair, sort workers
     # For each worker, track max profit of jobs whose ability can do
-    def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
+    def maxProfitAssignment1(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
         if not difficulty or not profit or not worker:
             return 0
         if len(difficulty) != len(profit):

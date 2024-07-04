@@ -11,22 +11,38 @@ class TreeNode:
 
 class Solution:
 
+    # Use stack to track right children
     def bstToGst(self, root: TreeNode) -> TreeNode:
         if not root:
             return None
-        prev,cur=None,root
-        st=[]
-        while cur or st:
+        prev, cur = None, root
+        stack = []
+        while cur or stack:
             if cur:
-                st.append(cur)
-                cur=cur.right
+                stack.append(cur)
+                cur = cur.right
             else:
-                cur=st.pop()
-                cur.val+=prev.val if prev else 0
-                prev=cur
-                cur=cur.left
+                cur = stack.pop()
+                cur.val += prev.val if prev else 0
+                prev = cur
+                cur = cur.left
         return root
+    
+    # Recursion
+    def bstToGst(self, root: TreeNode) -> TreeNode:
 
+        def recur(node):
+            nonlocal prev
+            if not node:
+                return
+            recur(node.right)
+            node.val += prev
+            prev = node.val
+            recur(node.left)
+
+        prev = 0
+        recur(root)
+        return root
 
 import unittest
 

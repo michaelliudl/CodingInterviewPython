@@ -1,11 +1,5 @@
 from typing import List
 
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
 class Solution:
 
     # Similar to 410. Binary search within [max(weights), sum(weights)] for capacity limit
