@@ -1,21 +1,21 @@
 from typing import List
 
 class Solution:
+
+    # Simplify code
     def sortColors(self, nums: List[int]) -> None:
-        if nums is None:
-            return
-        s,m,e = 0,0,len(nums)-1
-        while m<=e:
-            if nums[m]==0:
-                nums[s],nums[m]=nums[m],nums[s]
-                s+=1
-                m+=1
-            elif nums[m]==1:
-                m+=1
+        low, high = 0, len(nums) - 1
+        mid = 0
+        while mid <= high:
+            if nums[mid] == 0:
+                nums[low], nums[mid] = nums[mid], nums[low]
+                low += 1
+                mid += 1
+            elif nums[mid] == 1:
+                mid += 1
             else:
-                nums[m],nums[e]=nums[e],nums[m]
-                e-=1
-        return
+                nums[mid], nums[high] = nums[high], nums[mid]
+                high -= 1
 
 import unittest
 
