@@ -9,7 +9,39 @@ class TreeNode:
 
 class Solution:
 
+    # DFS to get paths from root to both start and dest
     def getDirections(self, root: Optional[TreeNode], startValue: int, destValue: int) -> str:
+
+        def dfs(node, path, target):
+            if not node:
+                return None
+            if node.val == target:
+                return path
+            path.append('L')
+            resPath = dfs(node.left, path, target)
+            if resPath:
+                return resPath
+            path.pop()
+            path.append('R')
+            resPath = dfs(node.right, path, target)
+            if resPath:
+                return resPath
+            # If target value is not in current subtree, pop path and return None
+            path.pop()
+            return None
+
+        startPath = dfs(node=root, path=[], target=startValue)
+        destPath = dfs(node=root, path=[], target=destValue)
+        lcaIndex = 0
+        while lcaIndex < min(len(startPath), len(destPath)):
+            if startPath[lcaIndex] != destPath[lcaIndex]:
+                break
+            lcaIndex += 1
+        # Convert path from start to LCA to U (up) and append path to destination
+        res = ['U'] * (len(startPath) - lcaIndex) + destPath[lcaIndex:]
+        return ''.join(res)
+
+    def getDirectionsLCA(self, root: Optional[TreeNode], startValue: int, destValue: int) -> str:
 
         def lca():
             n=min(len(startPath),len(destPath))

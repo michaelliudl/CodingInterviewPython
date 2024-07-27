@@ -9,7 +9,31 @@ class TreeNode:
 
 class Solution:
 
+    # Post order traversal to delete node bottom up
     def delNodes(self, root: Optional[TreeNode], to_delete: List[int]) -> List[TreeNode]:
+
+        def postorder(node):
+            if not node:
+                return None
+            node.left = postorder(node.left)
+            node.right = postorder(node.right)
+            if node.val not in delSet:
+                return node
+            if node.left:
+                res.append(node.left)
+            if node.right:
+                res.append(node.right)
+            return None
+
+        res = []
+        delSet = set(to_delete)
+        remRoot = postorder(node=root)
+        if remRoot:
+            res.append(remRoot)
+        return res
+
+
+    def delNodesDFS(self, root: Optional[TreeNode], to_delete: List[int]) -> List[TreeNode]:
 
         def dfs(target, node, parent, left):
             if not node:
@@ -45,9 +69,9 @@ import unittest
 class TestSolution(unittest.TestCase):
     def testDelNodes(self):
         s = Solution()
-        # self.assertEqual(s.delNodes(root=TreeNode(1,TreeNode(2,TreeNode(4),TreeNode(5)),TreeNode(3,TreeNode(6),TreeNode(7))), 
-        #                             to_delete = [3,5]), 
-        #                  [TreeNode(1,TreeNode(2,TreeNode(4))), TreeNode(6), TreeNode(7)])
+        self.assertEqual(s.delNodes(root=TreeNode(1,TreeNode(2,TreeNode(4),TreeNode(5)),TreeNode(3,TreeNode(6),TreeNode(7))), 
+                                    to_delete = [3,5]), 
+                         [TreeNode(1,TreeNode(2,TreeNode(4))), TreeNode(6), TreeNode(7)])
         self.assertEqual(s.delNodes(root=TreeNode(1,TreeNode(2,None,TreeNode(3)),TreeNode(4)),
                                     to_delete = [3]), 
                          [TreeNode(1,TreeNode(2),TreeNode(4))])
