@@ -1,32 +1,26 @@
-from typing import List
+from typing import List, DefaultDict
 
 class Solution:
 
     def lemonadeChange(self, bills: List[int]) -> bool:
-        if not bills: return False
-        d={}
-        for b in bills:
-            change=b-5
-            while change>0:
-                if change>=20 and 20 in d:
-                    change-=20
-                    d[20]-=1
-                    if d[20]==0: del d[20]
-                elif change>=10 and 10 in d:
-                    change-=10
-                    d[10]-=1
-                    if d[10]==0: del d[10]
-                elif change>=5 and 5 in d:
-                    change-=5
-                    d[5]-=1
-                    if d[5]==0: del d[5]
+        billMap = DefaultDict(int)
+        for bill in bills:
+            change = bill-5
+            while change > 0:
+                if change >= 20 and billMap[20] > 0:
+                    change -= 20
+                    billMap[20] -= 1
+                elif change >= 10 and billMap[10] > 0:
+                    change -= 10
+                    billMap[10] -= 1
+                elif change >= 5 and billMap[5] > 0:
+                    change -= 5
+                    billMap[5] -= 1
                 else:
                     break
-            if change>0: return False
-            if b in d:
-                d[b]+=1
-            else:
-                d[b]=1
+            if change > 0: 
+                return False
+            billMap[bill] += 1
         return True
 
 
