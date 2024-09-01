@@ -2,11 +2,13 @@ from typing import List
 
 class Solution:
 
-    def missingNumber(self, nums: List[int]) -> int:
-        if not nums: 
-            return -1
-        n, sumNums = len(nums), sum(nums)
-        return (n * (n + 1)) // 2 - sumNums
+    def construct2DArray(self, original: List[int], m: int, n: int) -> List[List[int]]:
+        if len(original) != m * n:
+            return []
+        res = []
+        for i in range(m):
+            res.append(original[i * n : (i + 1) * n])
+        return res
 
         
 

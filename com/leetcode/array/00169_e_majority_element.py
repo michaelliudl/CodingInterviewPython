@@ -7,14 +7,14 @@ class Solution:
     # Moore's Voting Algorithm O(1) space
     def majorityElement(self, nums: List[int]) -> int:
         if not nums: return 0
-        candidate,count=None,0
+        candidate,count = None,0
         for num in nums:
-            if count==0:
-                candidate=num
-            if num==candidate:
-                count+=1
+            if count == 0:
+                candidate = num
+            if num == candidate:
+                count += 1
             else:
-                count-=1
+                count -= 1
         return candidate
 
         

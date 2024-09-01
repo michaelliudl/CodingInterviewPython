@@ -10,34 +10,35 @@ class Solution:
     # 3. If the current element is different from both candidates, decrement the counts for both candidates.
     # 4. After iterating through the array, we need to verify the actual counts of the potential majority elements. We'll iterate through the array again and count the occurrences of each potential majority element. If the count exceeds ⌊ n/3 ⌋, we add the element to the result.
     def majorityElement(self, nums: List[int]) -> List[int]:
-        if not nums: return []
-        candidate1,candidate2=None,None
-        count1,count2=0,0
+        if not nums: 
+            return []
+        candidate1, candidate2 = None, None
+        count1, count2 = 0, 0
         for num in nums:
-            if num==candidate1:
-                count1+=1
-            elif num==candidate2:
-                count2+=1
-            elif count1==0:
-                candidate1=num
-                count1=1
-            elif count2==0:
-                candidate2=num
-                count2=1
+            if num == candidate1:
+                count1 += 1
+            elif num == candidate2:
+                count2 += 1
+            elif count1 == 0:
+                candidate1 = num
+                count1 = 1
+            elif count2 == 0:
+                candidate2 = num
+                count2 = 1
             else:
-                count1-=1
-                count2-=1
+                count1 -= 1
+                count2 -= 1
 
-        count1,count2=0,0
+        count1, count2=0, 0
         for num in nums:
-            if num==candidate1:
-                count1+=1
-            elif num==candidate2:
-                count2+=1
-        result,target=[],len(nums)//3
-        if count1>target:
+            if num == candidate1:
+                count1 += 1
+            elif num == candidate2:
+                count2 += 1
+        result, target=[], len(nums)//3
+        if count1 > target:
             result.append(candidate1)
-        if count2>target:
+        if count2 > target:
             result.append(candidate2)
         return result
         
