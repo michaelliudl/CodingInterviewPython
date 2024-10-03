@@ -15,6 +15,8 @@ class Solution:
                 cur += 1
         return result
 
+    def lexicalOrderBrute(self, n: int) -> List[int]:
+        return [int(s) for s in (list(sorted([str(num) for num in range(1, n + 1)])))]
 
         
 
