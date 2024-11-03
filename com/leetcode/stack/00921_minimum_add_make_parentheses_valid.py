@@ -2,17 +2,13 @@ from typing import List
 
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
-        if not s or len(s)==0:
-            return 0
-        st=list()
-        for c in s:
-            if not (c=='(' or c==')'):
-                return -1
-            st.append(c)
-            if len(st)>1 and st[len(st)-2:]==['(',')']:
-                st.pop()
-                st.pop()
-        return len(st)
+        stack = []
+        for char in s:
+            stack.append(char)
+            if len(stack) > 1 and stack[len(stack) - 2:] == ['(', ')']:
+                stack.pop()
+                stack.pop()
+        return len(stack)
 
 import unittest
 
