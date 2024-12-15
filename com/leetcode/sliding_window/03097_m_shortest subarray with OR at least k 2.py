@@ -3,7 +3,7 @@ import math
 
 class Solution:
 
-    # Use 32 lenght integer array to track # of `1` bits in the window
+    # Use 32 length integer array to track # of `1` bits in the window
     def minimumSubarrayLength(self, nums: List[int], k: int) -> int:
 
         def setBits(num, add):
@@ -35,7 +35,7 @@ class Solution:
                 setBits(nums[left], add=False)
                 orResult = convertBits()
                 left += 1
-        return result
+        return result if result != math.inf else -1
 
 
 import unittest
@@ -47,6 +47,7 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(s.minimumSubarrayLength(nums = [1,2,3], k = 2), 1)
         self.assertEqual(s.minimumSubarrayLength(nums = [2,1,8], k = 10), 3)
         self.assertEqual(s.minimumSubarrayLength(nums = [16,1,2,20,32], k = 45), 2)
+        self.assertEqual(s.minimumSubarrayLength(nums = [2,1,9,12], k = 21), -1)
 
 
 if __name__ == '__main__':
