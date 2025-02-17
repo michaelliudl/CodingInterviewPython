@@ -1,5 +1,5 @@
 from typing import Optional,List,Deque
-
+import math
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -10,24 +10,22 @@ class TreeNode:
 class Solution:
 
     def largestValues(self, root: Optional[TreeNode]) -> List[int]:
-        if not root:
-            return []
-        r=[]
-        q=Deque()
-        q.append(root)
-        while q:
-            size=len(q)
-            large=-float('inf')
+        if not root: return []
+        res = []
+        queue = Deque()
+        queue.append(root)
+        while queue:
+            size = len(queue)
+            large = -math.inf
             for _ in range(size):
-                n=q.popleft()
-                if n.val>large:
-                    large=n.val
-                if n.left:
-                    q.append(n.left)
-                if n.right:
-                    q.append(n.right)
-            r.append(large)
-        return r
+                node = queue.popleft()
+                large = max(large, node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            res.append(large)
+        return res
 
 import unittest
 
